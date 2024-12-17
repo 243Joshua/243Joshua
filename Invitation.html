@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'Invitation de Mariage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .invitation {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Générateur d'Invitation de Mariage</h1>
+    <p>Veuillez entrer votre nom pour recevoir votre invitation :</p>
+    <input type="text" id="nomInvite" placeholder="Entrez votre nom ici..." />
+    <button onclick="genererInvitation()">Générer l'invitation</button>
+    <div class="invitation" id="invitation"></div>
+    <div class="error" id="error"></div>
+
+    <script>
+        // Liste des invités
+        const invites = [
+            "Pasteur Abel", "Couple maweja", "Couple ravina", "Couple graje", "Couple Sharonne", "Couple Julva",
+            "Couple Akubu", "Couple bula bula", "Couple papa Kevin", "Joël isoki", "Lina Akubu", "Crépine tshibola",
+            "Jefferson Kalala", "Emanuel Kazaka", "Myriam mvumi", "Papa estimé", "Lina kiminu", "Danielle bassanga",
+            "Judith", "Jérémy Muipatayi", "Isaac", "Claudia", "Déo", "Fady", "Sam", "Sylvia", "Da Jojo", "Safi Ak",
+            "Sacrée", "Olive", "Déborah", "Joël kumni", "Couple Claude NTAMBWE", "couple Patrick NTUMBA", 
+            "Couple Peter MBUYI", "Couple Freddy KANKU", "COUPLE CEDRIC TSHIKUMA", "COUPLE HONORÉ TSHITUKA",
+            "COUPLE JOE NGALAMULUME", "COUPLE DANIEL TSHIBANGU", "COUPLE POPOL MWAMBA", "MAMAN ADRIENNE",
+            "INVITES MAMAN", "TINA LOSA", "BETTY YOTA", "YVONNE KABUYA", "Pasteur Obed-David LUNGOYI", 
+            "COUPLE FREDDY KWILU", "COUPLE PEPE NSAMU", "COUPLE BENOIT MIBULUMUKINI", "COUPLE STEVE PANZA", 
+            "ROSAIRE KANKONDE", "MERVEILLE BUMBA", "ROHI KABANGO", "COUPLE CYNTHIA NGALAMULUME", "KATHYA MBELU",
+            "COUPLE JONATHAN ELOHO", "COUPLE FRANCKY KAMWENA", "COUPLE KAMWENA J.", "MEMINI KAKUDJI", 
+            "DEBORAH KIWELE", "COUPLE DIEUDONNÉ NSAMU", "COUPLE EBEN MINDANA", "COUPLE PAsteur JEAN MENGI",
+            "COUPLE PASTEUR NORMAN MBINI", "COUPLE SIMPLICE KINZANZALA", "Rachel poké", "Andy kassongo", 
+            "Ghislain bassanga", "Vanessa Bayibo", "Pascaline Bukasa", "Ange", "Grâce et Bionick (couple)", 
+            "Couple glody mwaka", "Alex", "Binta dango", "Papa Hervé lukembo", "Shekinah KAMWANYA"
+        ];
+
+        // Fonction pour générer l'invitation
+        function genererInvitation() {
+            const nom = document.getElementById("nomInvite").value.trim();
+            const invitationDiv = document.getElementById("invitation");
+            const errorDiv = document.getElementById("error");
+
+            // Réinitialiser les messages
+            invitationDiv.style.display = "none";
+            errorDiv.textContent = "";
+
+            if (invites.includes(nom)) {
+                invitationDiv.innerHTML = `
+                    <h2>🎉 Invitation de Mariage 🎉</h2>
+                    <p>Cher(e) <strong>${nom}</strong>,</p>
+                    <p>Vous êtes cordialement invité(e) au mariage de <strong>[Noms des mariés]</strong>.</p>
+                    <p>📅 <strong>Date :</strong> [Insérer la date]</p>
+                    <p>📍 <strong>Lieu :</strong> [Insérer le lieu]</p>
+                    <p>⏰ <strong>Heure :</strong> [Insérer l'heure]</p>
+                    <p>Nous avons hâte de célébrer ce moment exceptionnel avec vous !</p>
+                `;
+                invitationDiv.style.display = "block";
+            } else {
+                errorDiv.textContent = "⚠️ Désolé, votre nom ne figure pas dans la liste des invités.";
+            }
+        }
+    </script>
+</body>
+</html>
