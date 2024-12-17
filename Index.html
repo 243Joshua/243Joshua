@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'Invitation de Mariage</title>
+    <title>Invitation au Mariage</title>
     <style>
+        /* Styles globaux */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            text-align: center;
         }
 
         h1 {
-            color: #333;
+            color: #444;
         }
 
         input {
@@ -27,6 +30,7 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         button {
@@ -49,6 +53,13 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             display: none;
+            text-align: center;
+        }
+
+        .invitation img {
+            width: 200px;
+            margin-top: 15px;
+            border-radius: 10px;
         }
 
         .error {
@@ -58,7 +69,7 @@
     </style>
 </head>
 <body>
-    <h1>Générateur d'Invitation de Mariage</h1>
+    <h1>l'Invité d'honneurs du Mariage 🎉</h1>
     <p>Veuillez entrer votre nom pour recevoir votre invitation :</p>
     <input type="text" id="nomInvite" placeholder="Entrez votre nom ici..." />
     <button onclick="genererInvitation()">Générer l'invitation</button>
@@ -79,7 +90,7 @@
             "COUPLE FREDDY KWILU", "COUPLE PEPE NSAMU", "COUPLE BENOIT MIBULUMUKINI", "COUPLE STEVE PANZA", 
             "ROSAIRE KANKONDE", "MERVEILLE BUMBA", "ROHI KABANGO", "COUPLE CYNTHIA NGALAMULUME", "KATHYA MBELU",
             "COUPLE JONATHAN ELOHO", "COUPLE FRANCKY KAMWENA", "COUPLE KAMWENA J.", "MEMINI KAKUDJI", 
-            "DEBORAH KIWELE", "COUPLE DIEUDONNÉ NSAMU", "COUPLE EBEN MINDANA", "COUPLE PAsteur JEAN MENGI",
+            "DEBORAH KIWELE", "COUPLE DIEUDONNÉ NSAMU", "COUPLE EBEN MINDANA", "COUPLE PASTEUR JEAN MENGI",
             "COUPLE PASTEUR NORMAN MBINI", "COUPLE SIMPLICE KINZANZALA", "Rachel poké", "Andy kassongo", 
             "Ghislain bassanga", "Vanessa Bayibo", "Pascaline Bukasa", "Ange", "Grâce et Bionick (couple)", 
             "Couple glody mwaka", "Alex", "Binta dango", "Papa Hervé lukembo", "Shekinah KAMWANYA"
@@ -95,14 +106,27 @@
             invitationDiv.style.display = "none";
             errorDiv.textContent = "";
 
-            if (invites.includes(nom)) {
+            // Normaliser le nom en minuscule et supprimer les accents
+            const nomNormalise = nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+
+            // Vérifier si "Couple" est suivi d'un nom
+            if (nomNormalise.startsWith("couple") && nomNormalise.split(" ").length < 2) {
+                errorDiv.textContent = "⚠️ Désolé, un 'Couple' doit être suivi d'un nom.";
+                return;
+            }
+
+            // Validation du nom par rapport à la liste (ignorer la casse et les accents)
+            const nomTrouve = invites.some(invite => invite.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim() === nomNormalise);
+
+            if (nomTrouve) {
                 invitationDiv.innerHTML = `
-                    <h2>🎉 Invitation de Mariage 🎉</h2>
+                    <h2>🎊 Félicitations ! 🎊</h2>
                     <p>Cher(e) <strong>${nom}</strong>,</p>
-                    <p>Vous êtes cordialement invité(e) au mariage de <strong>[Noms des mariés]</strong>.</p>
-                    <p>📅 <strong>Date :</strong> [Insérer la date]</p>
-                    <p>📍 <strong>Lieu :</strong> [Insérer le lieu]</p>
-                    <p>⏰ <strong>Heure :</strong> [Insérer l'heure]</p>
+                    <p>Vous êtes cordialement invité(e) au mariage de <strong>christian kabuya et lydia nzinga</strong>.</p>
+                    <p>📅 <strong>Date :</strong> le 28 dec 2024</p>
+                    <p>📍 <strong>Adresse :</strong> Église missionnaire C.B.CO SIMS Réf/ Symphonie des arts/Kintambo magasin.</p>
+                    <p>⏰ <strong>Heure :</strong> 12h00</p>
+                    <img src="https://i.postimg.cc/C1zYrKWG/IMG-20241217-WA0100.jpg" alt="Invitation de Mariage" />
                     <p>Nous avons hâte de célébrer ce moment exceptionnel avec vous !</p>
                 `;
                 invitationDiv.style.display = "block";
